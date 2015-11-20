@@ -1,0 +1,2 @@
+\subsection{Data Structure}
+How the program was structured, how the data was stored, transmitted between the python interface and Adhoc++, boost wrapping of the analysis kernel. A UML diagram would be good here.

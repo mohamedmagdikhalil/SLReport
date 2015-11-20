@@ -1,0 +1,54 @@
+\subsection{Higher Order Finite Elements Method}
+The choice of FCM is usually associated with using HOFEM due to its robustness in representing state-variables' field with higher order functions and the ability to achieve logarithmic rates of convergence (at worst linear for non-smooth problems) by increasing the polynomial degree of the shape functions (p-refinement) compared to decreasing the edge size (h-refinement) of linear elements. In addition, the usage of the hierarchical approach of order elevation offers the versatility of formulating elements with exact conformity to the meshed topology (or highly conforming for non-definite topologies). The latter feature allows the shaft's base geometry, which is of cylinderical natrue, to be represented exactly by \emph{blending} two edges of a hexagonal element\footnote{Different features of the shaft such as fillets, keyways, etc. could also be represented by blended hexes due to their closed-form geometry description but this wasn't implemented within the scope of this work}.
+Hierarchical order elevation is based on overlaying the linear shape functions $N_1$ and $N_2$ in equation \ref{eq:hierarchical}, referred to as \textit{node modes} by a hierarchy of higher order Legendre polynomials $\phi_i$ across the edges in one dimensions, referred to as \textit{edge modes}. To extend this concept in 2D and 3D, the edge modes are blended across the element by performing a tensor product with orthogonal nodal modes or edge modes, forming internal modes and face modes, respectively. Details on this topic are more thoroughly presented in \citep{hofem_script}
+
+\begin{subequations}
+\label{eq:hierarchical}
+\begin{align}
+N_0 &= \frac{1}{2}(1 - \xi) \\
+N_1 &= \frac{1}{2}(1 + \xi) \\
+N_i &= \phi_{i}(\xi, \eta)
+\end{align}
+\end{subequations}
+
+In the case of a shaft, each section was represented by $n$ blended hexes extruded over its lenth. Figure \ref{fig:blended_hex} shows a quad with two edge modes, representing equations of an arc, being applied to its edges $E_0$ and $E_2$. The formulation of this blending is given in equations \ref{eq:blended_hex}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=200pt]{./images/blended_hex.png}
+    \caption{Blended quad element}
+    \label{fig:blended_hex}
+  \end{center}
+\end{figure}
+
+\begin{subequations}
+\label{eq:blended_hex}
+\begin{align}
+  x &= \sum_{i = 0}^3 N_i(\xi, \eta) X_i \nonumber \\
+    &\qquad {} + \big( E_{x0}(\xi) - ( \frac{1-\xi}{2}X_0 + \frac{1+\xi}{2}X_1 ) ) \frac{1-\eta}{2} \nonumber \\
+    &\qquad {} + \big( E_{x2}(\xi) - ( \frac{1-\xi}{2}X_3 + \frac{1+\xi}{2}X_2 ) ) \frac{1+\eta}{2} \\
+  y &= \sum_{i = 0}^3 N_i(\xi, \eta) Y_i \nonumber \\
+    &\qquad {} + \big( E_{y0}(\xi) - ( \frac{1-\xi}{2}Y_0 + \frac{1+\xi}{2}Y_1 ) ) \frac{1-\eta}{2} \nonumber \\
+    &\qquad {} + \big( E_{y2}(\xi) - ( \frac{1-\xi}{2}Y_3 + \frac{1+\xi}{2}Y_2 ) ) \frac{1+\eta}{2}
+\end{align}
+\end{subequations}
+where $X_i$ and $Y_i$ are the nodal coordinates, $N_i$ are the linear nodal modes of a quad, and $E_{xi}$ and $E_{yi}$ are the edge modes of the ith edge in x and y described by an arc with radius $R_i$, center coordinates ($X_c$, $Y_c$), start angles $\phi$ and end angle $\theta$ as shown in the following equations:
+
+\begin{subequations}
+\label{eq:edge_modes_hex}
+\begin{align}
+      E_{xi}(\xi) &= X_c + R_i cos( \frac{1-\xi}{2}\phi + \frac{1+\xi}{2}\theta ) \\
+      E_{yi}(\xi) &= Y_c + R_i cos( \frac{1-\xi}{2}\phi + \frac{1+\xi}{2}\theta )
+\end{align}
+\end{subequations}
+
+The HOFEM concept was in principle used to reduce the intensity of partitioning needed by FCM. As explained in \ref{fcm_subsection}, the cut cells need to be partitioned up to a given depth at the integration level in order to reduce the intergration error. however, using blended hexes, as formulated above, for the FCM grid cells forming a polar grid rather than a cartesian grid results in cells conforming to the base domain of the shaft and isolating the need for partitioning to the zones where the features are located, as shown in figure ~\ref{fig:fcm_grids_comparison}. The reduction in partitioning depth and locations is reflected in turn in a reduction in the number of integration points to be evaluated (which are typically high for HOFEM, usually one point more than the polynomial order)
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=\textwidth]{./images/fcm_grids_comparison.png}
+    \caption{Comparison between the integration grid for cartesian FCM grid (right) and polar FCM grid (left)}
+    \label{fig:fcm_grids_comparison}
+  \end{center}
+\end{figure}
+

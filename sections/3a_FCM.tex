@@ -1,0 +1,28 @@
+\subsection{The Finite Cell Method}
+\label{fcm_subsection}
+Finite cell method is an embedded domain method in which the subject domain under investigation is \emph{embedded} in a grid of cartesian finite cells as shown in figure~\ref{fig:fcmConcept}. Cells that cross the boundary of the domain are partitioned by a bisecting their sides (forming bi-tree in 1D, quad-tree in 2D and octree in 3D) for a given number of times, known as the partioning depth. For every cell, the equation system is evaluated at a number of integration points $n$ using equation \ref{eq:fcm_equation}
+
+\begin{equation}
+\label{eq:fcm_equation}
+\delta W = \int_{\Omega} \delta v \textbf{B}^T \textbf{C} \textbf{B} d\textbf{v}
+	 - \int_{\Omega} \delta v \textbf{P} \alpha d\textbf{v}
+	 - \int_{\Gamma} \delta v \textbf{t} \alpha d\textbf{a}
+\end{equation}
+where $\Omega$ is the volume of the cells' domain, $\Gamma$ is the boundary of the cells' domain, $\delta v$ and $\delta W$ are the virtual displacement and work, respectively, $\textbf{B}$ is the B matrix, $\textbf{C}$ is the constitutive law matrix, $P$ and $t$ are the body and surface loads, respectively. The distinction in the evaluation of the physical domain $\Omega_{phys}$ and the fictious domain $\Omega_{fict} = \Omega - \Omega_{phys}$ is determined by the value of $\alpha$ given by:
+
+\begin{equation}
+\label{eq:alpha_equation}
+\alpha = 
+\begin{cases}
+    1.0 \qquad \forall x \in \Omega_{phys} \\
+    \approx 0 \qquad \forall x \in \Omega_{fict}
+\end{cases}
+\end{equation}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=\textwidth]{./images/fcm_concept.png}
+    \caption{Schematic representing the principle of the finite cell method}
+    \label{fig:fcmConcept}
+  \end{center}
+\end{figure}

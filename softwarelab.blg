@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: softwarelab.aux
+The style file: src/agsm.bst
+A level-1 auxiliary file: ./sections/0_titlePage.aux
+A level-1 auxiliary file: ./sections/1_introduction.aux
+A level-1 auxiliary file: ./sections/2_motivation.aux
+A level-1 auxiliary file: ./sections/3a_FCM.aux
+A level-1 auxiliary file: ./sections/3b_HOFEM.aux
+A level-1 auxiliary file: ./sections/3c_dataStructure.aux
+A level-1 auxiliary file: ./sections/3d_toolsUsed.aux
+A level-1 auxiliary file: ./sections/4_results.aux
+A level-1 auxiliary file: ./sections/5_conclusion.aux
+A level-1 auxiliary file: ./sections/Inf_Appendix.aux
+Database file #1: softwarelab.bib
+Warning--empty publisher in hofem_script
+You've used 1 entry,
+            2909 wiz_defined-function locations,
+            651 strings with 5053 characters,
+and the built_in function-call counts, 1973 in all, are:
+= -- 295
+> -- 24
+< -- 0
++ -- 129
+- -- 7
+* -- 146
+:= -- 450
+add.period$ -- 1
+call.type$ -- 1
+change.case$ -- 13
+chr.to.int$ -- 1
+cite$ -- 2
+duplicate$ -- 16
+empty$ -- 30
+format.name$ -- 9
+if$ -- 341
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 2
+newline$ -- 6
+num.names$ -- 10
+pop$ -- 10
+preamble$ -- 1
+purify$ -- 15
+quote$ -- 0
+skip$ -- 10
+stack$ -- 0
+substring$ -- 397
+swap$ -- 1
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 2
+warning$ -- 1
+while$ -- 21
+width$ -- 0
+write$ -- 13
+(There was 1 warning)
